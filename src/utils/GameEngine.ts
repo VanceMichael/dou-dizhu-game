@@ -88,9 +88,9 @@ export class GameEngine {
     for (const player of players) {
       if (player.cards.length === 0) {
         if (player.isLandlord) {
-          return { winner: 'farmer' };
-        } else {
           return { winner: 'landlord' };
+        } else {
+          return { winner: 'farmer' };
         }
       }
     }

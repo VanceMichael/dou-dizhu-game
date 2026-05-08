@@ -223,7 +223,7 @@ export class AIController {
         }
         
         const nonBombCombos = sortedCombos.filter(
-          c => c.type !== CardType.ROCKET
+          c => c.type !== CardType.ROCKET && c.type !== CardType.BOMB
         );
         
         if (nonBombCombos.length > 0) {
@@ -262,7 +262,7 @@ export class AIController {
       case Difficulty.MEDIUM:
         return myCards.length <= 8 && myBombs.length >= 1;
       case Difficulty.HARD:
-        return myCards.length <= 10 || myBombs.length >= 2;
+        return myCards.length <= 10 && myBombs.length >= 2;
     }
   }
 
