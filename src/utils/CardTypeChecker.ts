@@ -164,7 +164,7 @@ export class CardTypeChecker {
       if (a.type !== CardType.BOMB) {
         return true;
       }
-      return b.mainValue >= a.mainValue;
+      return b.mainValue > a.mainValue;
     }
 
     if (a.type === CardType.BOMB) {
@@ -179,7 +179,6 @@ export class CardTypeChecker {
       case CardType.SINGLE:
       case CardType.PAIR:
       case CardType.TRIPLE:
-      case CardType.BOMB:
       case CardType.STRAIGHT:
       case CardType.STRAIGHT_PAIR:
       case CardType.PLANE:
@@ -273,7 +272,7 @@ export class CardTypeChecker {
       if (sorted[i] - sorted[i - 1] !== 1) return null;
     }
 
-    return { mainValue: sorted[0], length: sorted.length };
+    return { mainValue: sorted[sorted.length - 1], length: sorted.length };
   }
 
   private static isStraightPair(cards: ICard[]): { mainValue: number; length: number } | null {

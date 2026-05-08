@@ -1,4 +1,4 @@
-import { ICard, IPlayer, Difficulty, GameState, RankName, IRankConfig } from '../types';
+import { ICard, IPlayer, Difficulty, RankName, IRankConfig } from '../types';
 import { CardTypeChecker } from './CardTypeChecker';
 import { AIController } from '../ai/AIController';
 import { Card } from './Card';
@@ -88,16 +88,16 @@ export class GameEngine {
     for (const player of players) {
       if (player.cards.length === 0) {
         if (player.isLandlord) {
-          return { winner: 'farmer' };
-        } else {
           return { winner: 'landlord' };
+        } else {
+          return { winner: 'farmer' };
         }
       }
     }
     return null;
   }
 
-  getCurrentBid(players: IPlayer[]): number {
+  getCurrentBid(_players: IPlayer[]): number {
     return 0;
   }
 
