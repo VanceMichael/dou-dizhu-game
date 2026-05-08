@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { Difficulty, RankName } from '../types';
+import { Difficulty } from '../types';
 import { ScoreManager, IRankInfo } from '../utils/ScoreManager';
 
 export class MenuScene extends Phaser.Scene {

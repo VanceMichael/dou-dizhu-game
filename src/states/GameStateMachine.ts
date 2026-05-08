@@ -1,5 +1,5 @@
 import { createMachine, assign, ActorRefFrom } from 'xstate';
-import { ICard, IPlayer, GameState, Difficulty } from '../types';
+import { ICard, IPlayer, Difficulty } from '../types';
 import { Deck } from '../utils/Deck';
 import { Card } from '../utils/Card';
 
@@ -265,28 +265,29 @@ export const gameStateMachine = createMachine({
       on: {
         PLAY_CARDS: {
           actions: assign(({ context, event }) => {
+            const playEvent = event as { type: 'PLAY_CARDS'; playerIndex: number; cards: ICard[] };
             const players = context.players.map((p, i) => {
-              if (i === event.playerIndex) {
-                const remainingCards = p.cards.filter(c => 
-                  !event.cards.some(ec => ec.id === c.id)
+              if (i === playEvent.playerIndex) {
+                const remainingCards = p.cards.filter((c: ICard) => 
+                  !playEvent.cards.some((ec: ICard) => ec.id === c.id)
                 );
                 return { ...p, cards: remainingCards };
               }
               return p;
             });
 
-            const playedCards = [...context.playedCards, ...event.cards];
+            const playedCards = [...context.playedCards, ...playEvent.cards];
             
             return {
               ...context,
               players,
-              lastPlayedCards: event.cards,
-              lastPlayerIndex: event.playerIndex,
-              currentPlayerIndex: (event.playerIndex + 1) % 3,
+              lastPlayedCards: playEvent.cards,
+              lastPlayerIndex: playEvent.playerIndex,
+              currentPlayerIndex: (playEvent.playerIndex + 1) % 3,
               passedPlayers: [],
               playedCards,
               gameLog: [...context.gameLog, 
-                `${context.players[event.playerIndex].name} 出牌：${event.cards.map(c => Card.getRankName(c.rank)).join(' ')}`
+                `${context.players[playEvent.playerIndex].name} 出牌：${playEvent.cards.map((c: ICard) => Card.getRankName(c.rank)).join(' ')}`
               ]
             };
           }),

@@ -333,7 +333,6 @@ export class GameScene extends Phaser.Scene {
 
   private renderPlayerCards(player: IPlayer, playerIndex: number): void {
     const cardWidth = 80;
-    const cardHeight = 110;
     const overlap = 30;
 
     if (playerIndex === 0) {
@@ -469,7 +468,7 @@ export class GameScene extends Phaser.Scene {
     }
   }
 
-  private createCardBack(x: number, y: number, playerIndex: number, cardIndex: number): void {
+  private createCardBack(x: number, y: number, playerIndex: number, _cardIndex: number): void {
     const container = this.add.container(x, y);
     const cardWidth = 80;
     const cardHeight = 110;

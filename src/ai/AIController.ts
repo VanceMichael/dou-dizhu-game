@@ -105,7 +105,7 @@ export class AIController {
     lastPlayerIndex: number,
     myIndex: number,
     isMyTurnToStart: boolean,
-    playedCards: ICard[],
+    _playedCards: ICard[],
     otherPlayersCardCounts: { playerIndex: number; count: number }[]
   ): AIDecision {
     if (isMyTurnToStart || lastPlayerIndex === myIndex || lastPlayedCards.length === 0) {
@@ -223,7 +223,7 @@ export class AIController {
         }
         
         const nonBombCombos = sortedCombos.filter(
-          c => c.type !== CardType.ROCKET
+          c => c.type !== CardType.ROCKET && c.type !== CardType.BOMB
         );
         
         if (nonBombCombos.length > 0) {
@@ -262,7 +262,7 @@ export class AIController {
       case Difficulty.MEDIUM:
         return myCards.length <= 8 && myBombs.length >= 1;
       case Difficulty.HARD:
-        return myCards.length <= 10 || myBombs.length >= 2;
+        return (myCards.length <= 5 && myBombs.length >= 1) || myBombs.length >= 3;
     }
   }
 
@@ -628,7 +628,7 @@ export class AIController {
     const twos = cards.filter(c => c.value === CardRank.TWO);
     score += twos.length * 10;
 
-    for (const [value, count] of Object.entries(valueCounts)) {
+    for (const [, count] of Object.entries(valueCounts)) {
       if (count === 4) {
         score += 20;
       } else if (count === 3) {

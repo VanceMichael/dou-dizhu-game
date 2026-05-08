@@ -1,4 +1,4 @@
-import { IPlayer, ICard, Difficulty } from '../types';
+import { ICard, Difficulty } from '../types';
 import { AIController } from '../ai/AIController';
 
 export class AutoPlayManager {
